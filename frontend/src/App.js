@@ -5,11 +5,14 @@ import AllCustomers from "./components/AllCustomers.js";
 import UpdateCustomers from "./components/UpdateCustomers"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Correctly import Router and Routes
 
+
 import Header from './components/Header.js';
 
 function App() {
   return (
     <Router>
+      
+      
       <div>
         <Header />
         <Routes>
@@ -18,6 +21,7 @@ function App() {
           <Route path="/update/:id" element={<UpdateCustomers />} />
         </Routes>
       </div>
+      
     </Router>
   );
 }

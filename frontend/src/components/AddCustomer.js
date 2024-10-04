@@ -14,6 +14,20 @@ export default function AddFeedback() {
   function sendData(e) {
     e.preventDefault();
 
+    // Validation for name (must not contain numbers)
+    const nameRegex = /^[A-Za-z\s]+$/; // Only letters and spaces
+    if (!nameRegex.test(name)) {
+      setError("Name cannot contain numbers or special characters.");
+      return;
+    }
+
+    // Validation for phone number (must start with 0 and be 10 digits)
+    const phoneRegex = /^0\d{9}$/; // Starts with 0 and has exactly 10 digits
+    if (!phoneRegex.test(phoneNumber)) {
+      setError("Phone number must start with 0 and contain exactly 10 digits.");
+      return;
+    }
+
     const newCustomer = {
       name,
       phone_number: phoneNumber, // Matching the backend's field naming
@@ -42,7 +56,7 @@ export default function AddFeedback() {
 
   return (
     <div className="container mt-5 d-flex justify-content-center">
-       <div className="card" style={{ width: "400px", border: "2px solid black" }}>
+      <div className="card" style={{ width: "400px", border: "2px solid black" }}>
         <div className="card-body">
           <h3 className="card-title mb-4 text-center">Add Feedback</h3>
           {error && <div className="alert alert-danger">{error}</div>}
