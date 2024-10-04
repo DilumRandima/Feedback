@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FeedbackReport from './FeedbackReport';
+import { generateFeedbackPDF } from './FeedbackReport'; // Import the PDF generation function
 
 export default function AllCustomers() {
     const [customers, setCustomers] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [showReport, setShowReport] = useState(false); // State to control the report visibility
 
     useEffect(() => {
         const getCustomers = async () => {
@@ -55,9 +54,13 @@ export default function AllCustomers() {
     // Filter customers based on search query
     const filteredCustomers = customers.filter(applySearchFilter);
 
-    // Function to toggle PDF report visibility
-    const toggleReport = () => {
-        setShowReport(prev => !prev);
+    // Function to generate PDF report
+    const handleGeneratePDF = () => {
+        if (filteredCustomers.length > 0) {
+            generateFeedbackPDF(filteredCustomers);
+        } else {
+            alert("No feedback available to generate report.");
+        }
     };
 
     return (
@@ -72,12 +75,9 @@ export default function AllCustomers() {
             />
             {loading && <p>Loading customers...</p>}
             {error && <p className="text-danger">{error}</p>}
-            <button className="btn btn-primary mb-3" onClick={toggleReport}>
+            <button className="btn btn-primary mb-3" onClick={handleGeneratePDF}>
                 Generate PDF
             </button>
-            {showReport && (
-                <FeedbackReport filteredCustomers={filteredCustomers} />
-            )}
             <table className="table table-striped">
                 <thead>
                     <tr>
