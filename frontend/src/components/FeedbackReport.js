@@ -38,11 +38,11 @@ export default function FeedbackReport({ filteredCustomers }) {
 
         const date = new Date().toLocaleDateString(); // Using simpler method to get current date
 
-        doc.setFontSize(28).setFont("Mooli", "bold").setTextColor("blue");
-        doc.text("Blue Aqua Pets Aquarium", 50, 15);
+        doc.setFontSize(28).setFont("Mooli", "bold").setTextColor("red");
+        doc.text("Peacock corridor Holiday House", 40, 15);
 
         doc.setFont("helvetica", "normal").setFontSize(20).setTextColor(0, 0, 0);
-        doc.text("Inventory Details Report", 65, 25);
+        doc.text("Customers Feedback Details Report", 50, 25);
 
         doc.setFont("times", "normal").setFontSize(15).setTextColor(100, 100, 100);
         doc.text(`Report Generated Date: ${date}`, 65, 35);
@@ -52,7 +52,7 @@ export default function FeedbackReport({ filteredCustomers }) {
             .setFontSize(12)
             .setTextColor(150, 150, 150);
         doc.text(
-            "Blue Aqua Pets , 1 ela, Moraketiya Road, Embilipitiya",
+            "Peacock corridor Hoiliday House",
             30,
             45
         );
@@ -79,7 +79,7 @@ export default function FeedbackReport({ filteredCustomers }) {
             },
         });
 
-        doc.save(`Aquarium-Details-Report_${date}.pdf`);
+        doc.save(`Feedback-Details-Report_${date}.pdf`);
     }
 
     return (
