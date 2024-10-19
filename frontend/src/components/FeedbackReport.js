@@ -6,6 +6,7 @@ export const generateFeedbackPDF = (filteredCustomers) => {
     const tableColumn = [
         "No",
         "Name",
+        "Customer Country",
         "Phone Number",
         "Email",
         "Message",
@@ -18,6 +19,7 @@ export const generateFeedbackPDF = (filteredCustomers) => {
         const data = [
             index + 1,
             feedbackItem.name,
+            feedbackItem.customer_country,
             feedbackItem.phone_number,
             feedbackItem.email,
             feedbackItem.message,

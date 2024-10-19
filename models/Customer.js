@@ -5,10 +5,15 @@ const Schema = mongoose.Schema;
 const CustomerSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true 
+    
+    },
+    customer_country: {
+        type: String,
+        require: true
     },
     phone_number: {
-        type: String, // Changed to String to avoid issues with large numbers
+        type: String, 
         required: true
     },
     email: {
@@ -23,9 +28,10 @@ const CustomerSchema = new Schema({
         type: String,
         required: true
     }
+
 });
 
-// Fixed typo in module.exports
+
 const Customer = mongoose.model("Customer", CustomerSchema);
 
-module.exports = Customer;  // Corrected export statement
+module.exports = Customer;  

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { generateFeedbackPDF } from './FeedbackReport'; // Import the PDF generation function
+import { generateFeedbackPDF } from './FeedbackReport'; 
 
 export default function AllCustomers() {
     const [customers, setCustomers] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+
 
     useEffect(() => {
         const getCustomers = async () => {
@@ -35,11 +37,12 @@ export default function AllCustomers() {
             });
     };
 
-    // Apply search filter to customers
+    
     const applySearchFilter = (customer) => {
         if (!customer) return false;
         const searchableFields = [
             'name',
+            'customer_country',
             'phone_number',
             'email',
             'employee_name',
@@ -51,10 +54,10 @@ export default function AllCustomers() {
         );
     };
 
-    // Filter customers based on search query
+    
     const filteredCustomers = customers.filter(applySearchFilter);
 
-    // Function to generate PDF report
+    
     const handleGeneratePDF = () => {
         if (filteredCustomers.length > 0) {
             generateFeedbackPDF(filteredCustomers);
@@ -82,6 +85,7 @@ export default function AllCustomers() {
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Customer Country</th>
                         <th>Phone Number</th>
                         <th>Email</th>
                         <th>Employee</th>
@@ -93,6 +97,7 @@ export default function AllCustomers() {
                     {filteredCustomers.map((customer) => (
                         <tr key={customer._id}>
                             <td>{customer.name}</td>
+                            <td>{customer.customer_country}</td>
                             <td>{customer.phone_number}</td>
                             <td>{customer.email}</td>
                             <td>{customer.employee_name}</td>

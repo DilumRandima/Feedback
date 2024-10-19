@@ -3,54 +3,63 @@ import axios from "axios";
 
 export default function AddFeedback() {
   const [name, setName] = useState("");
+  const [customercountry, setCustomerCountry] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [employeeName, setEmployeeName] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(null); // State for error messages
-  const [buttonColor, setButtonColor] = useState("red"); // State for button background color
+  const [error, setError] = useState(null); 
+  const [buttonColor, setButtonColor] = useState("red"); 
 
-  // Function to handle form submission
+  
   function sendData(e) {
     e.preventDefault();
 
-    // Validation for name (must not contain numbers)
-    const nameRegex = /^[A-Za-z\s]+$/; // Only letters and spaces
+    
+    const nameRegex = /^[A-Za-z\s]+$/; 
     if (!nameRegex.test(name)) {
       setError("Name cannot contain numbers or special characters.");
       return;
     }
 
-    // Validation for phone number (must start with 0 and be 10 digits)
-    const phoneRegex = /^0\d{9}$/; // Starts with 0 and has exactly 10 digits
+    const customerountryregex = /^[A-Za-z\s]+$/;
+    if (!customerountryregex.test(customercountry)) {
+      setError("Customer Country cannot contain numbers or special characters.");
+      return;
+    }
+
+    
+    const phoneRegex = /^0\d{9}$/; 
     if (!phoneRegex.test(phoneNumber)) {
       setError("Phone number must start with 0 and contain exactly 10 digits.");
       return;
     }
-
+ 
     const newCustomer = {
       name,
-      phone_number: phoneNumber, // Matching the backend's field naming
+      customer_country:customercountry,
+      phone_number: phoneNumber, 
       email,
       employee_name: employeeName,
       message,
     };
 
     axios
-      .post("http://localhost:8100/Customer/add", newCustomer) // Ensure this matches the server URL
+      .post("http://localhost:8100/Customer/add", newCustomer) 
       .then(() => {
         alert("Customer Added Successfully");
         // Clear form fields after successful submission
         setName("");
+        setCustomerCountry("");
         setPhoneNumber("");
         setEmail("");
         setEmployeeName("");
         setMessage("");
-        setError(null); // Clear any previous errors
+        setError(null); 
       })
       .catch((err) => {
         console.error("Error adding customer:", err);
-        setError("Failed to add customer. Please try again."); // Set error message
+        setError("Failed to add customer. Please try again."); 
       });
   }
 
@@ -74,6 +83,19 @@ export default function AddFeedback() {
                 required
               />
             </div>
+            {/* Customer Country */}
+            <div className="mb-3">
+              <label htmlFor="customer_country" className="form-label" style={{ color: "red" }}>Customer Country</label>
+              <input
+                type="text"
+                className="form-control"
+                id="customercountry"
+                placeholder="Enter Customer Country"
+                value={customercountry}
+                onChange={(e) => setCustomerCountry(e.target.value)}
+                required
+              />
+              </div>
 
             {/* Phone Number */}
             <div className="mb-3">
@@ -144,8 +166,8 @@ export default function AddFeedback() {
                 color: "white",
                 transition: "background-color 0.3s",
               }}
-              onMouseOver={() => setButtonColor("green")}  // Change background to green on hover
-              onMouseOut={() => setButtonColor("red")}  // Revert background to red when mouse leaves
+              onMouseOver={() => setButtonColor("green")}  
+              onMouseOut={() => setButtonColor("red")}  
             >
               Submit
             </button>

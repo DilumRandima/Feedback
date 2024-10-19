@@ -1,0 +1,28 @@
+.navbar {
+    background-color: darkred;  
+    color: white; 
+  }
+  
+  .navbar-brand {
+    color: white; 
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .nav-link {
+    color: white; 
+  }
+  
+  .navbar .nav-link:hover {
+    color: #ddd; 
+  }
+  
+  .logo {
+    height: 50px; 
+    width: auto;
+  }
+  
+  .navbar-toggler-icon {
+    filter: invert(100%); 
+  }
+  

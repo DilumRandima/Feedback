@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function UpdateFeedback() {
   const { id } = useParams(); // Get the customer ID from the URL
   const [name, setName] = useState("");
+  const [customerCountry, setCustomerCountry] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [employeeName, setEmployeeName] = useState("");
@@ -20,6 +21,7 @@ export default function UpdateFeedback() {
         const res = await axios.get(`http://localhost:8100/Customer/get/${id}`);
         const customer = res.data.customer; // Ensure to correctly fetch the customer object
         setName(customer.name);
+        setCustomerCountry(customer.customer_country);
         setPhoneNumber(customer.phone_number);
         setEmail(customer.email);
         setEmployeeName(customer.employee_name);
@@ -38,6 +40,7 @@ export default function UpdateFeedback() {
 
     const updatedCustomer = {
       name,
+      customer_country: customerCountry,
       phone_number: phoneNumber,
       email,
       employee_name: employeeName,
@@ -75,10 +78,23 @@ export default function UpdateFeedback() {
                 required
               />
             </div>
+             {/* Customer Country */}
+             <div className="mb-3">
+              <label htmlFor="customer_Country" className="form-label" style={{ color: "red" }}>Customer Country</label>
+              <input
+                type="text"
+                className="form-control"
+                id="customer_country"
+                value={customerCountry}
+                onChange={(e) => setCustomerCountry(e.target.value)}
+                placeholder="Enter Customer Name"
+                required
+              />
+            </div>
 
             {/* Phone Number */}
             <div className="mb-3">
-              <label htmlFor="phone_number" className="form-label" style={{ color: "red" }}>Phone Number</label>
+              <label htmlFor="phone_Number" className="form-label" style={{ color: "red" }}>Phone Number</label>
               <input
                 type="tel"
                 className="form-control"

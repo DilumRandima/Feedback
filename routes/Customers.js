@@ -4,19 +4,21 @@ let Customer = require("../models/Customer");
 // Route to add a new customer
 // POST http://localhost:8100/Customer/add
 router.route("/add").post((req, res) => {
-    const { name, phone_number, email, message, employee_name } = req.body;
+    const { name, customer_country, phone_number, email, message, employee_name,  } = req.body;
 
     // Validate that required fields are present
-    if (!name || !phone_number || !email || !message || !employee_name) {
+    if (!name || !customer_country || !phone_number || !email || !message || !employee_name ) {
         return res.status(400).json({ error: "Missing required fields" });
     }
 
     const newCustomer = new Customer({
         name,
+        customer_country,
         phone_number,
         email,
         message,
-        employee_name
+        employee_name,
+       
     });
 
     newCustomer.save()
@@ -46,9 +48,9 @@ router.route("/").get((req, res) => {
 // PUT http://localhost:8100/Customer/update/:id
 router.route("/update/:id").put(async (req, res) => {
     const CustomerId = req.params.id;
-    const { name, phone_number, email, message, employee_name } = req.body;
+    const { name, customer_country, phone_number, email, message, employee_name,  } = req.body;
 
-    const updateCustomer = { name, phone_number, email, message, employee_name };
+    const updateCustomer = { name, customer_country, phone_number, email, message, employee_name,  };
 
     await Customer.findByIdAndUpdate(CustomerId, updateCustomer, { new: true }) // { new: true } returns the updated document
         .then((updatedCustomer) => {
